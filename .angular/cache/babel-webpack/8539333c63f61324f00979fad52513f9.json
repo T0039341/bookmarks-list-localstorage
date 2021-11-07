@@ -1,0 +1,1 @@
+{"ast":null,"code":"export function UrlValidator(control) {\n  let regexp = /(http(s)?:\\/\\/.)?(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{2,256}\\.[a-z]{2,6}\\b([-a-zA-Z0-9@:%_\\+.~#?&//=]*)/g;\n\n  if (regexp.test(control.value)) {\n    return null;\n  }\n\n  return {\n    invalidUrl: true\n  };\n}","map":null,"metadata":{},"sourceType":"module"}

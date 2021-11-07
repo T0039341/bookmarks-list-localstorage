@@ -1,0 +1,116 @@
+@import '../../scss/variables.scss';
+
+
+//wrapper
+.wrapper {
+    // display: flex;
+    // flex-direction: column;
+    // align-items: center;
+    position:absolute;
+    // margin-top: 10rem;
+    margin-left: auto;
+    margin-right: auto;
+    left: 30%;
+    right: 30%;
+    text-align: center;
+  
+}
+
+
+
+//input wrapper
+.input-wrapper {
+    background-color: $white-color;
+    padding: 30px;
+    height: 200px;
+    box-shadow: 0px 0px 10px $grey-color-2;
+}
+
+.input-wrapper .input-data {
+    height: 40px;
+    width: 100%;
+    position: relative;
+}
+
+.input-wrapper .input-data input {
+    height: 100%;
+    width: 100%;
+    border: none;
+    font-size: 17px;
+    border-bottom: 2px solid $grey-color-1;
+    &:focus {
+        outline: none;
+    }
+}
+
+.input-wrapper .input-data .underline {
+    position: absolute;
+    bottom: 0px;
+    height: 2px;
+    width: 100%;
+}
+
+.input-wrapper .input-data label {
+    position: absolute;
+    bottom: 10px;
+    left: 0;
+    color: $grey-color-2;
+    pointer-events: none;
+    transition: all 0.3s ease;
+}
+
+//input elements
+// .input-data .underline::before {
+//     position: absolute;
+//     content: '';
+//     height: 100%;
+//     width: 100%;
+//     background-color: $blue-color-1;
+//     transform: scaleX(0);
+//     transition: transform 0.3s ease;
+// }
+
+.input-data input:focus~label,
+.input-data input:valid~label {
+    transform: translateY(-20px);
+    font-size: 15px;
+    color: $blue-color-1;
+}
+
+.input-data input:focus~.underline:before,
+.input-data input:valid~.underline:before {
+    transform: scaleX(1);
+}
+
+//button
+.button-wrapper {
+    margin-top: 25px;
+}
+
+.button {
+    text-decoration: none;
+    background: $blue-color-1;
+    color: $white-color;
+    padding: 14px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    &:hover:enabled {
+        box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+    }
+}
+
+.button:disabled {
+    background-color: $grey-color-2;
+}
+
+.bookmark-item {
+    margin-top: 15px;
+    width: 50%;
+}
+
+.error-message {
+    font-size: 12px;
+    margin-top: 5px;
+    color: $error-color;
+}

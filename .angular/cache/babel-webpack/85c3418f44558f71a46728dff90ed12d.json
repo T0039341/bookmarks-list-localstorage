@@ -1,0 +1,1 @@
+{"ast":null,"code":"export function RequiredValidator(control) {\n  console.log(control.value ? null : {\n    error: 'need value'\n  });\n  return control.value ? null : {\n    'error': 'need value'\n  };\n}","map":null,"metadata":{},"sourceType":"module"}

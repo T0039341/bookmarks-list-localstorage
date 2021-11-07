@@ -1,0 +1,26 @@
+@import './variables.scss';
+h1,
+h2,
+h3,
+h4,
+h5 {
+    color: $white-color;
+    font-family: ropa-sans-pro, sans-serif;
+    font-weight: 400;
+    &.uppercase {
+        text-transform: uppercase;
+    }
+    &.white {
+        color: $white-color;
+    }
+}
+
+h1 {
+    font-size: 3rem;
+    line-height: 60px;
+}
+
+h2 {
+    font-size: 32px;
+    line-height: 42px;
+}

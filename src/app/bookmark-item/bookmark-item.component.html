@@ -1,0 +1,16 @@
+<div class="wrapper">
+    <div class="card-wrapper" #url 
+        *ngFor="let url of urlVal | paginate: { itemsPerPage: itemsPerPage, currentPage: p };">
+        <a href="{{url}}">
+            URL: {{url}}
+        </a>
+        <div class="url-controls">
+            <div class="url-buttons">
+                <fa-icon (click)="editClicked()" (click)="onclick(url)" #edit class="edit-icon" [icon]="faEdit"></fa-icon>
+                <fa-icon class="delete-icon" (click)="deleteUrl()" [icon]="faTrash"></fa-icon>
+            </div>
+        </div>
+    </div>
+    <pagination-controls [responsive]="true" [autoHide]="true" class="pagination-controls" (pageChange)="p = $event">
+    </pagination-controls>
+</div>

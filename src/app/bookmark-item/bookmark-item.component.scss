@@ -1,0 +1,48 @@
+@import '../../scss/variables.scss';
+.card-wrapper {
+    display: flex;
+    color: $white-color;
+    margin-top: 10px;
+    padding: 10px;
+    border: 2px solid white;
+    // border-radius: 20px;
+}
+
+.card-wrapper>a {
+    color: $white-color;
+    &:hover {
+        color: $pink-color;
+        transition: 0.5sec all ease;
+    }
+}
+
+.pagination-controls {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.url-controls {
+    margin-left: auto;
+}
+
+fa-icon {
+    margin-left: 5px;
+}
+
+.delete-icon:hover {
+    color: $error-color;
+    transition: 0.5s all ease;
+    cursor: pointer;
+}
+
+.edit-icon:hover {
+    color: $yellow-color;
+    transition: 0.5s all ease;
+    cursor: pointer;
+}
+
+.dialogue{
+    height:100px;
+    background:red;
+}

@@ -1,0 +1,34 @@
+<div class="wrapper">
+    <h1>
+        URL BOOKMARK APP</h1>
+    <div class="input-wrapper">
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+            <div class="input-data">
+                <input formControlName="url" type="text" required>
+                <div class="underline"></div>
+                <label>URL</label>
+                <div class="error-message">
+                    <span *ngIf="!url?.valid && url?.touched && url?.errors?.error">
+                        URL Required
+                    </span>
+                    <span *ngIf="url?.value && form.get('url')?.errors?.invalidUrl">
+                        URL not Valid
+                    </span>
+                    <span *ngIf="this.checkDuplicates">
+                        URL already exists
+                    </span>
+                    <span *ngIf="this.checkUpdateDuplicates">
+                        URL already exists
+                    </span>
+                </div>
+            </div>
+            <div class="button-wrapper">
+                <button type="submit" [disabled]="!form.valid" class="button">Submit</button>
+            </div>
+        </form>
+
+    </div>
+    <app-edit-modal (formVal)="newValz($event)" [listVal]="urlToUpdate"></app-edit-modal>
+    <app-bookmark-item [urlVal]="urlArr" (getListValue)="getListVal($event)" (updateUrlVal)="updateUrl($event)"
+        (newUrlEvent)="getNewArr($event)" class="bookmark-item"></app-bookmark-item>
+</div>

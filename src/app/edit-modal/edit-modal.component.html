@@ -1,0 +1,25 @@
+<div *ngIf="show" class="wrapper">
+    <div class="input-wrapper">
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="input-data">
+        <input formControlName="url" type="text"  required>
+        <div class="underline"></div>
+        <label>URL</label>
+        <div class="error-message">
+            <span *ngIf="!url?.valid && url?.touched && url?.errors?.error">
+                URL Required
+            </span>
+            <span *ngIf="url?.value && form.get('url')?.errors?.invalidUrl">
+                URL not Valid
+            </span>
+            <span *ngIf="checkDuplicates">
+                Url Exists
+            </span>
+        </div>
+    </div>
+    <div class="button-wrapper">
+        <button type="submit" [disabled]="!form.valid" class="button">Submit</button>
+    </div>
+</form>
+</div>
+</div>
