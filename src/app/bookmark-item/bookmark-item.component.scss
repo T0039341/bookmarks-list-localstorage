@@ -9,6 +9,7 @@
 }
 
 .card-wrapper>a {
+    cursor: pointer;
     color: $white-color;
     &:hover {
         color: $pink-color;

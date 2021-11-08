@@ -16,6 +16,8 @@ import { StorageServiceModule } from 'ngx-webstorage-service';
 import { EditModalComponent } from './edit-modal/edit-modal.component';
 import { UrlInterceptor } from './interceptors/url.interceptor';
 import { ResultsComponent } from './results/results.component';
+import { NotFoundComponent } from './not-found/not-found.component';
+
 
 
 @NgModule({
@@ -25,6 +27,8 @@ import { ResultsComponent } from './results/results.component';
     BookmarkItemComponent,
     EditModalComponent,
     ResultsComponent,
+    NotFoundComponent,
+
 
   ],
   imports: [

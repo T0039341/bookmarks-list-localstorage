@@ -35,6 +35,7 @@ export class BookmarkItemComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
   }
 
+
   //get url value 
   ngAfterViewInit() {
     if (this.el) {
@@ -42,11 +43,18 @@ export class BookmarkItemComponent implements OnInit, AfterViewInit {
       this.newEl = this.urlHtmlVal.innertext;
     }
   }
+
+  navFunc(url: Bookmarks) {
+    window.location.href = `${url}`
+
+  }
+
+
   //get reference of current url value 
   //and delete it from urVal array
   //send the new array back to bookmarks
-  deleteUrl() {
-    let index = this.urlVal.indexOf(this.urlHtmlVal);
+  deleteUrl(url: Bookmarks) {
+    let index = this.urlVal.indexOf(url);
     this.urlVal.splice(index, 1);
     this.newUrlEvent.emit(this.urlVal);
   }

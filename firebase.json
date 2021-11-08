@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "public": "dist",
+    "public": "dist/phantom-bookmark-app",
     "ignore": [
       "firebase.json",
       "**/.*",
