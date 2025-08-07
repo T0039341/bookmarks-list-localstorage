@@ -26,7 +26,7 @@ export class EditModalComponent implements OnInit, AfterViewChecked {
   @Input() listVal: Bookmarks;
   @Output() formVal: EventEmitter<Bookmarks> = new EventEmitter();
   constructor(private fb: FormBuilder, private localStorageService: LocalStorageService, private sharedService: SharedService) { }
-
+  //ngoninit
   ngOnInit(): void {
 
     this.createForm();
