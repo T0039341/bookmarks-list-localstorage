@@ -2,8 +2,7 @@ name: Deploy Angular App to S3
 
 on:
   push:
-    branches:
-      - master
+    branches: [master]
 
 jobs:
   deploy:
