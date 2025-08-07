@@ -1,12 +1,10 @@
-name: Deploy Angular App to S3
+name: Deploy PR Preview
 
 on:
-  push:
-    branches:
-      - master
+  pull_request:
 
 jobs:
-  deploy:
+  deploy-preview:
     runs-on: ubuntu-latest
 
     steps:
@@ -24,7 +22,7 @@ jobs:
       - name: Build Angular app
         run: npm run build -- --configuration production
 
-      - name: Upload to S3
+      - name: Deploy to S3
         uses: jakejarvis/s3-sync-action@master
         with:
           args: --delete
@@ -34,3 +32,4 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: ${{ secrets.AWS_REGION }}
           SOURCE_DIR: dist/phantom-bookmark-app
+          DEST_DIR: preview/pr-${{ github.event.pull_request.number }}
