@@ -1,0 +1,13 @@
+name: Test CI Trigger
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  hello:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Say hi
+        run: echo "GitHub Actions is working"
