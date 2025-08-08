@@ -16,21 +16,19 @@ jobs:
   deploy-preview:
     if: github.event.action != 'closed'
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: 18
 
-      - name: Install dependencies
-        run: npm install
+      - run: npm install
 
-      - name: Build Angular app
-        run: npm run build -- --configuration production
+      - name: Build Angular app (PR preview)
+        run: |
+          export BASE_PATH="/${{ env.PREVIEW_PATH }}/"
+          npm run build -- --configuration production --base-href "$BASE_PATH" --deploy-url "$BASE_PATH"
 
       - name: Deploy to S3 (preview path)
         uses: jakejarvis/s3-sync-action@master
@@ -49,29 +47,25 @@ jobs:
         with:
           issue-number: ${{ github.event.pull_request.number }}
           body: |
-            ✅ **Preview deployed**  
+            ✅ **Preview deployed**
             **URL:** ${{ env.PREVIEW_URL }}/index.html
 
   cleanup-preview:
     if: github.event.action == 'closed'
     runs-on: ubuntu-latest
-
     steps:
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v4
+      - uses: aws-actions/configure-aws-credentials@v4
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_REGION }}
 
       - name: Delete preview assets from S3
-        run: |
-          aws s3 rm "s3://${{ secrets.S3_BUCKET_NAME }}/${{ env.PREVIEW_PATH }}/" --recursive
+        run: aws s3 rm "s3://${{ secrets.S3_BUCKET_NAME }}/${{ env.PREVIEW_PATH }}/" --recursive
 
       - name: Comment PR with cleanup notice
-        if: ${{ github.event.pull_request.number != '' }}
         uses: peter-evans/create-or-update-comment@v4
         with:
           issue-number: ${{ github.event.pull_request.number }}
           body: |
-            🧹 **Preview removed** because this PR was closed.
+            🧹 **Preview removed** (PR closed)
