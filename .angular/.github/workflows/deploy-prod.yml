@@ -7,7 +7,7 @@ on:
       - master
 
 env:
-  PROD_URL: http://${{ secrets.AWS_PROD_BUCKET }}.s3-website-eu-west-2.amazonaws.com
+  PROD_URL: http://${{ secrets.AWS_PROD_BUCKET }}.s3-website.eu-west-2.amazonaws.com
 
 jobs:
   deploy-prod:
