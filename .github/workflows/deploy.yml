@@ -1,12 +1,20 @@
-name: Deploy Angular App to S3
+name: Deploy PR Preview
 
 on:
-  push:
-    branches:
-      - master
+  pull_request:
+    types: [opened, reopened, synchronize, closed]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+env:
+  PREVIEW_PATH: preview/pr-${{ github.event.pull_request.number }}
+  PREVIEW_URL: ${{ vars.PREVIEW_BASE_URL }}/preview/pr-${{ github.event.pull_request.number }}
 
 jobs:
-  deploy:
+  deploy-preview:
+    if: github.event.action != 'closed'
     runs-on: ubuntu-latest
 
     steps:
@@ -24,7 +32,7 @@ jobs:
       - name: Build Angular app
         run: npm run build -- --configuration production
 
-      - name: Upload to S3
+      - name: Deploy to S3 (preview path)
         uses: jakejarvis/s3-sync-action@master
         with:
           args: --delete
@@ -34,3 +42,36 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: ${{ secrets.AWS_REGION }}
           SOURCE_DIR: dist/phantom-bookmark-app
+          DEST_DIR: ${{ env.PREVIEW_PATH }}
+
+      - name: Comment PR with preview link
+        uses: peter-evans/create-or-update-comment@v4
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          body: |
+            ✅ **Preview deployed**  
+            **URL:** ${{ env.PREVIEW_URL }}/index.html
+
+  cleanup-preview:
+    if: github.event.action == 'closed'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Delete preview assets from S3
+        run: |
+          aws s3 rm "s3://${{ secrets.S3_BUCKET_NAME }}/${{ env.PREVIEW_PATH }}/" --recursive
+
+      - name: Comment PR with cleanup notice
+        if: ${{ github.event.pull_request.number != '' }}
+        uses: peter-evans/create-or-update-comment@v4
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          body: |
+            🧹 **Preview removed** because this PR was closed.
