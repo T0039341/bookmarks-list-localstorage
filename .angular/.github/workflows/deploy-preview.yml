@@ -3,6 +3,9 @@ name: Deploy PR Preview
 on:
   pull_request:
     types: [opened, reopened, synchronize, closed]
+    branches-ignore:
+      - main
+      - master
 
 permissions:
   contents: read
@@ -37,7 +40,7 @@ jobs:
         with:
           args: --delete
         env:
-          AWS_S3_BUCKET: ${{ secrets.S3_BUCKET_NAME }}
+          AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: ${{ secrets.AWS_REGION }}
@@ -66,7 +69,7 @@ jobs:
 
       - name: Delete preview assets from S3
         run: |
-          aws s3 rm "s3://${{ secrets.S3_BUCKET_NAME }}/${{ env.PREVIEW_PATH }}/" --recursive
+          aws s3 rm "s3://${{ secrets.AWS_S3_BUCKET }}/${{ env.PREVIEW_PATH }}/" --recursive
 
       - name: Comment PR with cleanup notice
         if: ${{ github.event.pull_request.number != '' }}
