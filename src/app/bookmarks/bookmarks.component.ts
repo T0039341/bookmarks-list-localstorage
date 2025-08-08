@@ -39,7 +39,7 @@ export class BookmarksComponent implements OnInit {
     //   // console.log(res) trigger pr
     // }
     // )dummy commit trigger pr review
-    //trigger with dummy commit the pipelinesss
+    //trigger with dummy commit the pipelinessssss
     this.getListVal(this.urlToUpdate);
     console.log(this.urlToUpdate)
     if (localStorage.getItem(this.key)) {
