@@ -60,7 +60,7 @@ export class EditModalComponent implements OnInit, AfterViewChecked {
   get url() {
     return this.form.get('url');
   }
-  //receive edit icon click event
+  //receive edit icon click event something
   getEditClickEvent() {
     this.sharedService.currentDataStream.subscribe(res => {
       if (res === true) {
