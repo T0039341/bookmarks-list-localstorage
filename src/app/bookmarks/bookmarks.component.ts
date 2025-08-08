@@ -38,7 +38,7 @@ export class BookmarksComponent implements OnInit {
     // this.urlService.checkUrl('http://2.com').subscribe(res => {
     //   // console.log(res)
     // }
-    // )dummy commit
+    // )dummy commit trigger pr review
     //trigger with dummy commit the pipeline
     this.getListVal(this.urlToUpdate);
     console.log(this.urlToUpdate)
